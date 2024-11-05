@@ -80,6 +80,15 @@ std::vector<PowerType> readPowerTypes(const std::string& filename) {
             pt.ignoreForcedFallTime = tokens[53].empty() ? 0.0f : std::stof(tokens[53]);
             pt.showCloudTime = tokens[54].empty() ? 0.0f : std::stof(tokens[54]);
             pt.cooldownTime = tokens[55].empty() ? 0.0f : std::stof(tokens[55]);
+            pt.baseDamage = tokens[68].empty() ? 0.0f : std::stof(tokens[68]);
+            pt.variableImpulse = tokens[69].empty() ? 0.0f : std::stof(tokens[69]);
+            pt.fixedImpulse = tokens[70].empty() ? 0.0f : std::stof(tokens[70]);
+            pt.minimumImpulse = tokens[71].empty() ? 0.0f : std::stof(tokens[71]);
+            pt.postHitDamageMultiplier = tokens[72].empty() ? 0.0f : std::stof(tokens[72]);
+            pt.postHitImpulseMultiplier = tokens[73].empty() ? 0.0f : std::stof(tokens[73]);
+            pt.impactOffsetX = tokens[74];
+            pt.impactOffsetY = tokens[75];
+            pt.impactOffsetMaxX = tokens[76];
             powerTypes.push_back(pt);
         }
         catch (const std::exception& e) {

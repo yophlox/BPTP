@@ -25,6 +25,17 @@ struct PowerType {
     float ignoreForcedFallTime;// Time to ignore forced falling
     float showCloudTime;       // Visual effect timing
     float cooldownTime;        // Time before move can be used again
+    
+    // Damage fields
+    float baseDamage;
+    float variableImpulse;
+    float fixedImpulse;
+    float minimumImpulse;
+    float postHitDamageMultiplier;
+    float postHitImpulseMultiplier;
+    std::string impactOffsetX;  // Can be like "0,0" or complex values
+    std::string impactOffsetY;
+    std::string impactOffsetMaxX;
 };
 
 std::vector<PowerType> readPowerTypes(const std::string& filename);

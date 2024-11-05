@@ -71,6 +71,15 @@ void PowerTypeEditor::copyToEditBuffers(int index) {
     editBuffers->ignoreForcedFallTime = pt.ignoreForcedFallTime;
     editBuffers->showCloudTime = pt.showCloudTime;
     editBuffers->cooldownTime = pt.cooldownTime;
+    editBuffers->baseDamage = pt.baseDamage;
+    editBuffers->variableImpulse = pt.variableImpulse;
+    editBuffers->fixedImpulse = pt.fixedImpulse;
+    editBuffers->minimumImpulse = pt.minimumImpulse;
+    editBuffers->postHitDamageMultiplier = pt.postHitDamageMultiplier;
+    editBuffers->postHitImpulseMultiplier = pt.postHitImpulseMultiplier;
+    strncpy_s(editBuffers->impactOffsetX, sizeof(editBuffers->impactOffsetX), pt.impactOffsetX.c_str(), _TRUNCATE);
+    strncpy_s(editBuffers->impactOffsetY, sizeof(editBuffers->impactOffsetY), pt.impactOffsetY.c_str(), _TRUNCATE);
+    strncpy_s(editBuffers->impactOffsetMaxX, sizeof(editBuffers->impactOffsetMaxX), pt.impactOffsetMaxX.c_str(), _TRUNCATE);
 }
 
 void PowerTypeEditor::copyFromEditBuffers(int index) {
@@ -95,6 +104,15 @@ void PowerTypeEditor::copyFromEditBuffers(int index) {
     pt.ignoreForcedFallTime = editBuffers->ignoreForcedFallTime;
     pt.showCloudTime = editBuffers->showCloudTime;
     pt.cooldownTime = editBuffers->cooldownTime;
+    pt.baseDamage = editBuffers->baseDamage;
+    pt.variableImpulse = editBuffers->variableImpulse;
+    pt.fixedImpulse = editBuffers->fixedImpulse;
+    pt.minimumImpulse = editBuffers->minimumImpulse;
+    pt.postHitDamageMultiplier = editBuffers->postHitDamageMultiplier;
+    pt.postHitImpulseMultiplier = editBuffers->postHitImpulseMultiplier;
+    pt.impactOffsetX = editBuffers->impactOffsetX;
+    pt.impactOffsetY = editBuffers->impactOffsetY;
+    pt.impactOffsetMaxX = editBuffers->impactOffsetMaxX;
 }
 
 void PowerTypeEditor::renderEditor() {
@@ -129,6 +147,19 @@ void PowerTypeEditor::renderEditor() {
     modified |= ImGui::InputFloat("Ignore Forced Fall Time", &editBuffers->ignoreForcedFallTime, 0.1f);
     modified |= ImGui::InputFloat("Show Cloud Time", &editBuffers->showCloudTime, 0.1f);
     modified |= ImGui::InputFloat("Cooldown Time", &editBuffers->cooldownTime, 0.1f);
+
+    ImGui::Separator();
+    ImGui::Text("Damage & Impact");
+    
+    modified |= ImGui::InputFloat("Base Damage", &editBuffers->baseDamage, 0.5f);
+    modified |= ImGui::InputFloat("Variable Impulse", &editBuffers->variableImpulse, 0.5f);
+    modified |= ImGui::InputFloat("Fixed Impulse", &editBuffers->fixedImpulse, 0.5f);
+    modified |= ImGui::InputFloat("Minimum Impulse", &editBuffers->minimumImpulse, 0.5f);
+    modified |= ImGui::InputFloat("Post-Hit Damage Multiplier", &editBuffers->postHitDamageMultiplier, 0.1f);
+    modified |= ImGui::InputFloat("Post-Hit Impulse Multiplier", &editBuffers->postHitImpulseMultiplier, 0.1f);
+    modified |= ImGui::InputText("Impact Offset X", editBuffers->impactOffsetX, sizeof(editBuffers->impactOffsetX));
+    modified |= ImGui::InputText("Impact Offset Y", editBuffers->impactOffsetY, sizeof(editBuffers->impactOffsetY));
+    modified |= ImGui::InputText("Impact Offset Max X", editBuffers->impactOffsetMaxX, sizeof(editBuffers->impactOffsetMaxX));
 
     if (modified) {
         copyFromEditBuffers(selectedIndex);

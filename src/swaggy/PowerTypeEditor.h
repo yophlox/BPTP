@@ -33,6 +33,15 @@ private:
         float ignoreForcedFallTime;
         float showCloudTime;
         float cooldownTime;
+        float baseDamage;
+        float variableImpulse;
+        float fixedImpulse;
+        float minimumImpulse;
+        float postHitDamageMultiplier;
+        float postHitImpulseMultiplier;
+        char impactOffsetX[64];
+        char impactOffsetY[64];
+        char impactOffsetMaxX[64];
     };
     
     std::unique_ptr<EditBuffers> editBuffers;
