@@ -63,6 +63,14 @@ void PowerTypeEditor::copyToEditBuffers(int index) {
     strncpy(editBuffers->targetMethod, pt.targetMethod.c_str(), sizeof(editBuffers->targetMethod) - 1);
     strncpy(editBuffers->parentItem, pt.parentItem.c_str(), sizeof(editBuffers->parentItem) - 1);
     strncpy(editBuffers->originPower, pt.originPower.c_str(), sizeof(editBuffers->originPower) - 1);
+    strncpy_s(editBuffers->castTime, sizeof(editBuffers->castTime), pt.castTime.c_str(), _TRUNCATE);
+    editBuffers->fixedRecoverTime = pt.fixedRecoverTime;
+    editBuffers->recoverTime = pt.recoverTime;
+    editBuffers->antigravTime = pt.antigravTime;
+    editBuffers->gCancelTime = pt.gCancelTime;
+    editBuffers->ignoreForcedFallTime = pt.ignoreForcedFallTime;
+    editBuffers->showCloudTime = pt.showCloudTime;
+    editBuffers->cooldownTime = pt.cooldownTime;
 }
 
 void PowerTypeEditor::copyFromEditBuffers(int index) {
@@ -79,6 +87,14 @@ void PowerTypeEditor::copyFromEditBuffers(int index) {
     pt.targetMethod = editBuffers->targetMethod;
     pt.parentItem = editBuffers->parentItem;
     pt.originPower = editBuffers->originPower;
+    pt.castTime = editBuffers->castTime;
+    pt.fixedRecoverTime = editBuffers->fixedRecoverTime;
+    pt.recoverTime = editBuffers->recoverTime;
+    pt.antigravTime = editBuffers->antigravTime;
+    pt.gCancelTime = editBuffers->gCancelTime;
+    pt.ignoreForcedFallTime = editBuffers->ignoreForcedFallTime;
+    pt.showCloudTime = editBuffers->showCloudTime;
+    pt.cooldownTime = editBuffers->cooldownTime;
 }
 
 void PowerTypeEditor::renderEditor() {
@@ -106,13 +122,13 @@ void PowerTypeEditor::renderEditor() {
     ImGui::Text("Attack Timing");
     
     modified |= ImGui::InputText("Cast Time", editBuffers->castTime, sizeof(editBuffers->castTime));
-    modified |= ImGui::InputFloat("Fixed Recover Time", &pt.fixedRecoverTime, 0.1f);
-    modified |= ImGui::InputFloat("Recover Time", &pt.recoverTime, 0.1f);
-    modified |= ImGui::InputFloat("Antigrav Time", &pt.antigravTime, 0.1f);
-    modified |= ImGui::InputFloat("GCancel Time", &pt.gCancelTime, 0.1f);
-    modified |= ImGui::InputFloat("Ignore Forced Fall Time", &pt.ignoreForcedFallTime, 0.1f);
-    modified |= ImGui::InputFloat("Show Cloud Time", &pt.showCloudTime, 0.1f);
-    modified |= ImGui::InputFloat("Cooldown Time", &pt.cooldownTime, 0.1f);
+    modified |= ImGui::InputFloat("Fixed Recover Time", &editBuffers->fixedRecoverTime, 0.1f);
+    modified |= ImGui::InputFloat("Recover Time", &editBuffers->recoverTime, 0.1f);
+    modified |= ImGui::InputFloat("Antigrav Time", &editBuffers->antigravTime, 0.1f);
+    modified |= ImGui::InputFloat("GCancel Time", &editBuffers->gCancelTime, 0.1f);
+    modified |= ImGui::InputFloat("Ignore Forced Fall Time", &editBuffers->ignoreForcedFallTime, 0.1f);
+    modified |= ImGui::InputFloat("Show Cloud Time", &editBuffers->showCloudTime, 0.1f);
+    modified |= ImGui::InputFloat("Cooldown Time", &editBuffers->cooldownTime, 0.1f);
 
     if (modified) {
         copyFromEditBuffers(selectedIndex);

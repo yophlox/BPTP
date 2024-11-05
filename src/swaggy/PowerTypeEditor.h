@@ -25,6 +25,14 @@ private:
         char targetMethod[256];
         char parentItem[256];
         char originPower[256];
+        char castTime[32];
+        float fixedRecoverTime;
+        float recoverTime;
+        float antigravTime;
+        float gCancelTime;
+        float ignoreForcedFallTime;
+        float showCloudTime;
+        float cooldownTime;
     };
     
     std::unique_ptr<EditBuffers> editBuffers;
