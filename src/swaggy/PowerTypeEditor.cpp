@@ -102,6 +102,18 @@ void PowerTypeEditor::renderEditor() {
     modified |= ImGui::InputText("Parent Item", editBuffers->parentItem, sizeof(editBuffers->parentItem));
     modified |= ImGui::InputText("Origin Power", editBuffers->originPower, sizeof(editBuffers->originPower));
 
+    ImGui::Separator();
+    ImGui::Text("Attack Timing");
+    
+    modified |= ImGui::InputText("Cast Time", editBuffers->castTime, sizeof(editBuffers->castTime));
+    modified |= ImGui::InputFloat("Fixed Recover Time", &pt.fixedRecoverTime, 0.1f);
+    modified |= ImGui::InputFloat("Recover Time", &pt.recoverTime, 0.1f);
+    modified |= ImGui::InputFloat("Antigrav Time", &pt.antigravTime, 0.1f);
+    modified |= ImGui::InputFloat("GCancel Time", &pt.gCancelTime, 0.1f);
+    modified |= ImGui::InputFloat("Ignore Forced Fall Time", &pt.ignoreForcedFallTime, 0.1f);
+    modified |= ImGui::InputFloat("Show Cloud Time", &pt.showCloudTime, 0.1f);
+    modified |= ImGui::InputFloat("Cooldown Time", &pt.cooldownTime, 0.1f);
+
     if (modified) {
         copyFromEditBuffers(selectedIndex);
     }

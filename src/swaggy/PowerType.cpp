@@ -72,6 +72,14 @@ std::vector<PowerType> readPowerTypes(const std::string& filename) {
             pt.targetMethod = tokens[9];
             pt.parentItem = tokens[10];
             pt.originPower = tokens[11];
+            pt.castTime = tokens[48];
+            pt.fixedRecoverTime = tokens[49].empty() ? 0.0f : std::stof(tokens[49]);
+            pt.recoverTime = tokens[50].empty() ? 0.0f : std::stof(tokens[50]);
+            pt.antigravTime = tokens[51].empty() ? 0.0f : std::stof(tokens[51]);
+            pt.gCancelTime = tokens[52].empty() ? 0.0f : std::stof(tokens[52]);
+            pt.ignoreForcedFallTime = tokens[53].empty() ? 0.0f : std::stof(tokens[53]);
+            pt.showCloudTime = tokens[54].empty() ? 0.0f : std::stof(tokens[54]);
+            pt.cooldownTime = tokens[55].empty() ? 0.0f : std::stof(tokens[55]);
             powerTypes.push_back(pt);
         }
         catch (const std::exception& e) {
