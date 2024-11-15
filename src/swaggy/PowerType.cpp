@@ -51,51 +51,35 @@ std::vector<PowerType> readPowerTypes(const std::string& filename) {
     std::getline(file, line);
     std::vector<std::string> headers = splitCSV(line);
 
+    int lineCount = 0;
     while (std::getline(file, line)) {
+        lineCount++;
         std::vector<std::string> tokens = splitCSV(line);
-        if (tokens.size() < 12) {
-            std::cerr << "Warning: Skipping malformed line: " << line << std::endl;
-            continue;
-        }
-
         PowerType pt;
         try {
             pt.powerName = tokens[0];
-            pt.powerID = std::stoi(tokens[1]);
-            pt.orderID = std::stoi(tokens[2]);
-            pt.devNotes = tokens[3];
-            pt.missionTags = tokens[4];
-            pt.priority = std::stoi(tokens[5]);
-            pt.castSoundEvent = tokens[6];
-            pt.hitSoundEvent = tokens[7];
-            pt.itemHitSoundEvent = tokens[8];
-            pt.targetMethod = tokens[9];
-            pt.parentItem = tokens[10];
-            pt.originPower = tokens[11];
-            pt.castTime = tokens[48];
-            pt.fixedRecoverTime = tokens[49].empty() ? 0.0f : std::stof(tokens[49]);
-            pt.recoverTime = tokens[50].empty() ? 0.0f : std::stof(tokens[50]);
-            pt.antigravTime = tokens[51].empty() ? 0.0f : std::stof(tokens[51]);
-            pt.gCancelTime = tokens[52].empty() ? 0.0f : std::stof(tokens[52]);
-            pt.ignoreForcedFallTime = tokens[53].empty() ? 0.0f : std::stof(tokens[53]);
-            pt.showCloudTime = tokens[54].empty() ? 0.0f : std::stof(tokens[54]);
-            pt.cooldownTime = tokens[55].empty() ? 0.0f : std::stof(tokens[55]);
-            pt.baseDamage = tokens[68].empty() ? 0.0f : std::stof(tokens[68]);
-            pt.variableImpulse = tokens[69].empty() ? 0.0f : std::stof(tokens[69]);
-            pt.fixedImpulse = tokens[70].empty() ? 0.0f : std::stof(tokens[70]);
-            pt.minimumImpulse = tokens[71].empty() ? 0.0f : std::stof(tokens[71]);
-            pt.postHitDamageMultiplier = tokens[72].empty() ? 0.0f : std::stof(tokens[72]);
-            pt.postHitImpulseMultiplier = tokens[73].empty() ? 0.0f : std::stof(tokens[73]);
-            pt.impactOffsetX = tokens[74];
-            pt.impactOffsetY = tokens[75];
-            pt.impactOffsetMaxX = tokens[76];
+            pt.powerID = tokens.size() > 1 && !tokens[1].empty() ? std::stoi(tokens[1]) : 0;
+            pt.orderID = tokens.size() > 2 && !tokens[2].empty() ? std::stoi(tokens[2]) : 0;
+            pt.devNotes = tokens.size() > 3 ? tokens[3] : "";
+            pt.missionTags = tokens.size() > 4 ? tokens[4] : "";
+            pt.priority = tokens.size() > 5 && !tokens[5].empty() ? std::stoi(tokens[5]) : 0;
+            pt.castSoundEvent = tokens.size() > 6 ? tokens[6] : "";
+            pt.hitSoundEvent = tokens.size() > 7 ? tokens[7] : "";
+            pt.itemHitSoundEvent = tokens.size() > 8 ? tokens[8] : "";
+            pt.targetMethod = tokens.size() > 9 ? tokens[9] : "";
+            pt.parentItem = tokens.size() > 10 ? tokens[10] : "";
+            pt.originPower = tokens.size() > 11 ? tokens[11] : "";
+            
             powerTypes.push_back(pt);
         }
         catch (const std::exception& e) {
-            std::cerr << "Error parsing line: " << line << "\nError: " << e.what() << std::endl;
+            std::cerr << "Error parsing line " << lineCount << ": " << e.what() << std::endl;
             continue;
         }
     }
+
+    std::cout << "Total lines processed: " << lineCount << std::endl;
+    std::cout << "Total powers loaded: " << powerTypes.size() << std::endl;
 
     return powerTypes;
 } 
